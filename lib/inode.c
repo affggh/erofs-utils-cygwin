@@ -27,6 +27,11 @@
 #include "erofs/blobchunk.h"
 #include "liberofs_private.h"
 
+#ifdef __CYGWIN__
+#define stat64 stat
+#define lstat64 lstat
+#endif
+
 #define S_SHIFT                 12
 static unsigned char erofs_ftype_by_mode[S_IFMT >> S_SHIFT] = {
 	[S_IFREG >> S_SHIFT]  = EROFS_FT_REG_FILE,

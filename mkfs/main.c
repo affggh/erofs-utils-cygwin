@@ -25,6 +25,11 @@
 #include "erofs/blobchunk.h"
 #include "../lib/liberofs_private.h"
 
+#ifdef __CYGWIN__
+#define stat64 stat
+#define lstat64 lstat
+#endif
+
 #ifdef HAVE_LIBUUID
 #include <uuid.h>
 #endif

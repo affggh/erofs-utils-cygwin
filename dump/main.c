@@ -271,7 +271,11 @@ static inline int erofs_checkdirent(struct erofs_dirent *de,
 		return -EFSCORRUPTED;
 	}
 	if (de->file_type >= EROFS_FT_MAX) {
+		#ifndef __CYGWIN__
 		erofs_err("invalid file type %llu", de->nid);
+		#else
+		erofs_err("invalid file type %lu", de->nid);
+		#endif
 		return -EFSCORRUPTED;
 	}
 	return dname_len;
@@ -310,8 +314,13 @@ static int erofs_read_dirent(struct erofs_dirent *de,
 			&& de->nid != nid && de->nid != parent_nid) {
 		err = erofs_read_dir(de->nid, nid);
 		if (err) {
+			#ifndef __CYGWIN__
 			erofs_err("parse dir nid %llu error occurred\n",
 					de->nid);
+			#else
+			erofs_err("parse dir nid %lu error occurred\n",
+					de->nid);
+			#endif
 			return err;
 		}
 	}

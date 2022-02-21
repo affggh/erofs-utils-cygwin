@@ -35,8 +35,11 @@ typedef unsigned short umode_t;
 #endif
 
 /* no obvious reason to support explicit PAGE_SIZE != 4096 for now */
+// This can remove on windows
+#ifndef __CYGWIN__
 #if PAGE_SIZE != 4096
 #error incompatible PAGE_SIZE is already defined
+#endif
 #endif
 
 #ifndef PAGE_MASK

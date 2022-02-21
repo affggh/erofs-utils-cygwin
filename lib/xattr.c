@@ -19,6 +19,11 @@
 #include "erofs/io.h"
 #include "liberofs_private.h"
 
+#ifdef __CYGWIN__
+#define stat64 stat
+#define lstat64 lstat
+#endif
+
 #define EA_HASHTABLE_BITS 16
 
 struct xattr_item {
